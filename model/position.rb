@@ -1,5 +1,5 @@
 class Position
-  def initialize(room, width, length)
+  def initialize(room, width = 0, length = 0)
     @room = room
     @current_width = width
     @current_length = length

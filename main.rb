@@ -6,10 +6,10 @@ Dir["model/roomba/*.rb"].each {|file| require_relative file }
 room = Room.new 20, 40
 position = Position.new room, 10, 10
 sensor = Sensor.new position
-mover = Mover.new position
+engine = Engine.new position
 cleaner = Cleaner.new position
 
-roomba = Roomba.new sensor, mover, cleaner
+roomba = Roomba.new sensor, engine, cleaner
 
 
 window = Window.new room, roomba

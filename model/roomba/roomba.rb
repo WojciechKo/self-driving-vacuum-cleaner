@@ -1,11 +1,31 @@
 class Roomba
-  def initialize(sensor, mover, cleaner)
+  def initialize(sensor, engine, cleaner)
     @sensor = sensor
-    @mover = mover
+    @engine = engine
     @cleaner = cleaner
   end
 
+  def auto_move
+    move mover.next_move
+  end
+
   def move(direction)
-    @mover.move(direction) unless @sensor.check(direction) == :obstacle
+    case @sensor.check(direction)
+      when :obstacle
+        mapper.blocked(direction)
+      else
+        @engine.move(direction)
+        mapper.moved(direction)
+    end
+  end
+
+  private
+
+  def mover
+    @mover ||= Mover.new mapper
+  end
+
+  def mapper
+    @mapper ||= Mapper.new
   end
 end
