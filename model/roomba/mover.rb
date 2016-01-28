@@ -21,13 +21,3 @@ class Mover
     @path_finder.path_to(:dirt).map(&:to_s)
   end
 end
-
-class PathFinder
-  def initialize(mapper)
-    @mapper = mapper
-  end
-
-  def path_to(field)
-
-  end
-end
