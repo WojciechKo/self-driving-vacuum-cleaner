@@ -1,6 +1,7 @@
 # Self driving vacuum cleaner
 
 Simple simulation of self driving vacuum cleaner
+![Screen shot](https://raw.githubusercontent.com/WojciechKo/self-driving-vacuum-cleaner/master/img/screen.png "Screen shot")
 
 ## Installation
 1. Clone repository `git clone https://github.com/WojciechKo/self-driving-vacuum-cleaner.git`
