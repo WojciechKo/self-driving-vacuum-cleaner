@@ -3,7 +3,10 @@ require 'gosu'
 class Window < Gosu::Window
   TILE_SIZE = 20
 
-  CONTROL = {Gosu::Button::KbLeft => :left, Gosu::Button::KbRight => :right, Gosu::Button::KbUp => :down, Gosu::Button::KbDown => :up}
+  CONTROL = {Gosu::Button::KbLeft => :left,
+             Gosu::Button::KbRight => :right,
+             Gosu::Button::KbUp => :up,
+             Gosu::Button::KbDown => :down}
 
   def initialize(room, roomba)
     super room.width * TILE_SIZE, room.length * TILE_SIZE, false
@@ -14,6 +17,13 @@ class Window < Gosu::Window
 
   def button_down(id)
     case id
+      when Gosu::KbA
+        Thread.new do
+          while true
+            @roomba.auto_move
+            sleep 0.05
+          end
+        end.run
       when Gosu::MsLeft
         toggle_obstacle_or_dirt *room_coordinates
       when *CONTROL.keys
@@ -59,19 +69,18 @@ class Window < Gosu::Window
   end
 
   def clean
-    Gosu::Image.new('img/clean.png', tileable: true)
+    @clean_img ||= Gosu::Image.new('img/clean.png')
   end
 
   def dirt
-    Gosu::Image.new('img/dirt.png', tileable: true)
+    @dirt_img ||= Gosu::Image.new('img/dirt.png')
   end
 
   def obstacle
-    Gosu::Image.new('img/obstacle.png', tileable: true)
+    @obstacle_img ||= Gosu::Image.new('img/obstacle.png')
   end
 
   def roomba
-    Gosu::Image.new('img/roomba.jpg', tileable: true)
+    @roomba_img ||= Gosu::Image.new('img/roomba.jpg')
   end
-
 end

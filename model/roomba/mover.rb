@@ -1,12 +1,11 @@
 class Mover
   def initialize(mapper)
-    @path_finder = PathFinder.new mapper
-    @planned_moves = []
     @mapper = mapper
+    @planned_moves = []
   end
 
   def next_move
-    moves.pop
+    moves.shift
   end
 
   private
@@ -18,6 +17,6 @@ class Mover
   end
 
   def generate_moves
-    @path_finder.path_to(:dirt).map(&:to_s)
+    PathFinder.new(@mapper).path_to(:unknown)
   end
 end
