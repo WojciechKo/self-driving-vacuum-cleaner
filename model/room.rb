@@ -43,8 +43,8 @@ class Room
   end
 
   def set_tile_value(width, length, state)
-    return unless width.between?(1, @width - 1)
-    return unless length.between?(1, @length - 1)
+    return unless (1...@width - 1).include? width
+    return unless (1...@length - 1).include? length
 
     find_tile(width, length).value = state
   end

@@ -42,7 +42,7 @@ class Window < Gosu::Window
 
   def draw
     @room.each_tile do |tile|
-      image(tile.value).draw(tile.width * TILE_SIZE, tile.length * TILE_SIZE, 0)
+      image(tile.value).draw(tile.width * TILE_SIZE, height - ((tile.length + 1)* TILE_SIZE), 0)
     end
   end
 
@@ -52,7 +52,7 @@ class Window < Gosu::Window
 
   private
   def room_coordinates
-    [(mouse_x / TILE_SIZE).to_i, (mouse_y / TILE_SIZE).to_i]
+    [(mouse_x / TILE_SIZE).to_i, ((height - mouse_y) / TILE_SIZE).to_i]
   end
 
   def image(tile)
