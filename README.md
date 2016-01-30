@@ -1,3 +1,10 @@
 # Self driving vacuum cleaner
 
 Simple simulation of self driving vacuum cleaner
+
+## Installation
+1. Clone repository `git clone https://github.com/WojciechKo/self-driving-vacuum-cleaner.git`
+2. Change to project directory `cd self-driving-vacuum-cleaner`
+3. Install bundler gem. `gem install bundler`
+4. Download dependencies `bundle install`
+5. Run application `ruby main.rb`
