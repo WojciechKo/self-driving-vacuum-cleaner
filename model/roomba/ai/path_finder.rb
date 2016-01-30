@@ -7,25 +7,30 @@ class PathFinder
 
   def path_to(field)
     (1..1000).each do |n|
-      path = n_steps_paths(n).find { |path| path.destination_field == field }
-      return path.moves unless path.nil?
+      path = n_steps_paths(n).find { |vector, path| path.destination_field == field }
+      return path[1].moves unless path.nil?
     end
   end
 
   private
   def n_steps_paths(n)
     if n == 1
-      @paths = {}
-      @paths[n] ||= MOVES.map { |m| Path.new([m], @mapper) }
+      @paths = {[0, 0] => Path.new([], @mapper)}
+      @paths.merge!(MOVES.map { |m| Path.new([m], @mapper) }
                         .select { |p| p.destination_field != :blocked }
+                        .inject({}) { |result, path| result[path.vector] = path; result })
     else
-      @paths[n] ||= n_steps_paths(n-1)
-                        .select { |p| p.destination_field != :blocked }
-                        .map(&:moves)
-                        .product(MOVES)
-                        .map { |p| p[0] + [p[1]] }
-                        .map { |moves| Path.new(moves, @mapper) }
-                        .select { |p| p.destination_field != :blocked }
+      @paths = @paths
+                   .select { |vector, path| path.moves.size == (n -1) }
+                   .values
+                   .map(&:moves)
+                   .product(MOVES)
+                   .map { |p| Path.new(p[0] + [p[1]], @mapper) }
+                   .select { |p| p.destination_field != :blocked }
+                   .inject({}) { |result, path| result[path.vector] = path; result }
+                   .merge(@paths)
+
+      @paths.select { |vector, path| path.moves.size == n }
     end
   end
 end
