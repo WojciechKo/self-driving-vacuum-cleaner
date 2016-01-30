@@ -1,6 +1,10 @@
 require 'gosu'
+require_relative '../model/roomba/roomba_factory'
+require_relative '../model/room'
 
-class Window < Gosu::Window
+class RoombaRoom < Gosu::Window
+  SCREEN_WIDTH = 60
+  SCREEN_HEIGHT = 30
   TILE_SIZE = 20
 
   CONTROL = {Gosu::Button::KbLeft => :left,
@@ -8,24 +12,37 @@ class Window < Gosu::Window
              Gosu::Button::KbUp => :up,
              Gosu::Button::KbDown => :down}
 
-  def initialize(room, roomba)
-    super room.width * TILE_SIZE, room.length * TILE_SIZE, false
+  def initialize
+    super SCREEN_WIDTH * TILE_SIZE, SCREEN_HEIGHT * TILE_SIZE, false
     self.caption = 'Hello World!'
-    @room = room
-    @roomba = roomba
+    init_room_and_roomba
+  end
+
+  def init_room_and_roomba
+    @room = Room.new SCREEN_WIDTH, SCREEN_HEIGHT
+    @roomba = RoombaFactory.with_fake_components(@room, 10, 10)
   end
 
   def button_down(id)
     case id
       when Gosu::KbA
-        Thread.new do
-          while true
-            @roomba.auto_move
-            sleep 0.01
+        if @auto
+          @auto = false
+          @auto_thread.kill
+        else
+          @auto_thread = Thread.new do
+            while true
+              @roomba.auto_move
+              sleep 0.01
+            end
           end
-        end.run
+          @auto_thread.run
+          @auto = true
+        end
       when Gosu::KbG
         @room.gen_obstacle(@room.width * @room.length * 0.1)
+      when Gosu::KbR
+        init_room_and_roomba
       when Gosu::MsLeft
         toggle_obstacle_or_dirt *room_coordinates
       when *CONTROL.keys
