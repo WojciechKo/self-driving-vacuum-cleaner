@@ -21,9 +21,11 @@ class Window < Gosu::Window
         Thread.new do
           while true
             @roomba.auto_move
-            sleep 0.05
+            sleep 0.01
           end
         end.run
+      when Gosu::KbG
+        @room.gen_obstacle(@room.width * @room.length * 0.1)
       when Gosu::MsLeft
         toggle_obstacle_or_dirt *room_coordinates
       when *CONTROL.keys

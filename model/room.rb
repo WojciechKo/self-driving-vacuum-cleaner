@@ -17,6 +17,13 @@ class Room
     set_tile_value(width, length, :obstacle)
   end
 
+  def gen_obstacle(number)
+    sl = (1...@width - 1).to_a.product((1...length - 1).to_a)
+    sl.shuffle.first(number).each do |width, length|
+      obstacle(width, length)
+    end
+  end
+
   def clean(width, length)
     set_tile_value(width, length, :clean)
   end
