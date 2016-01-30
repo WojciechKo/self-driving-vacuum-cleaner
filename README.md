@@ -8,3 +8,10 @@ Simple simulation of self driving vacuum cleaner
 3. Install bundler gem. `gem install bundler`
 4. Download dependencies `bundle install`
 5. Run application `ruby main.rb`
+
+## Usage
+- Press `Left mouse button` to change dirt to obstacle or vice versa
+- Press `Keyboard arrows` to move vacuum cleaner
+- Press `G` to generate random obstacles
+- Press `A` to start/stop self driving (NOTE: should not be interrupt by manual control)
+- Press `R` to reset room
