@@ -40,7 +40,7 @@ class RoombaRoom < Gosu::Window
           @auto = true
         end
       when Gosu::KbG
-        @room.gen_obstacle(@room.width * @room.length * 0.1)
+        @room.gen_obstacle(@room.width * @room.length * 0.01)
       when Gosu::KbR
         init_room_and_roomba
       when Gosu::MsLeft

@@ -18,10 +18,10 @@ class Room
   end
 
   def gen_obstacle(number)
-    sl = (1...@width - 1).to_a.product((1...length - 1).to_a)
-    sl.shuffle.first(number).each do |width, length|
-      obstacle(width, length)
-    end
+    @tiles
+        .select{ |t| t.value == :dirt }
+        .sample(number)
+        .each { |t| t.value = :obstacle }
   end
 
   def clean(width, length)
