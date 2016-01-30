@@ -1,3 +1,5 @@
+require_relative 'path_finder'
+
 class Mover
   def initialize(mapper)
     @mapper = mapper

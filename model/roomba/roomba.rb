@@ -1,3 +1,6 @@
+require_relative 'ai/mapper'
+require_relative 'ai/mover'
+
 class Roomba
   def initialize(sensor, engine, cleaner)
     @sensor = sensor
