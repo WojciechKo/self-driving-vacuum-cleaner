@@ -1,3 +1,6 @@
+# Lecture assignment on WMH
+This repository contains a lecture assignment on Modern Heuristic Techniques. (Współczesne techniki heurystyczne - WMH)
+
 # Self driving vacuum cleaner
 
 Simple simulation of self driving vacuum cleaner
